@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import PromotionCard from '@/components/PromotionCard';
-import { AlertTriangle, HelpCircle, Info, Award } from 'lucide-react';
+import { AlertTriangle, HelpCircle, Info, Award, Github, Linkedin, Mail } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const AboutPage: React.FC = () => {
   return (
@@ -36,11 +36,15 @@ const AboutPage: React.FC = () => {
           </CardHeader>
           <CardContent>
             <ul className="list-disc pl-5 space-y-2">
-              <li>Attend club meetings and events (5-10 points)</li>
-              <li>Complete challenge projects (15-30 points)</li>
-              <li>Help fellow members with problems (5-20 points)</li>
-              <li>Present workshops or talks (25-50 points)</li>
-              <li>Contribute to club-sponsored open source projects (10-40 points)</li>
+              <li>Logistical Support (10 points)</li>
+              <li>Club/Event Promotions (10-20 points)</li>
+              <li>Mentoring new members (20 points)</li>
+              <li>Club Representations (30 points)</li>
+              <li>Handling External Relations (30 points)</li>
+              <li>Recruiting new members (20 points)</li>
+              <li>Event Management (40 points)</li>
+              <li>Hosting Events/Leading (50 points)</li>
+              <li>Managing Socials, Website, Club branding (10 points)</li>
             </ul>
           </CardContent>
         </Card>
@@ -83,13 +87,67 @@ const AboutPage: React.FC = () => {
         </Card>
       </div>
       
-      <div className="mb-8">
-        <PromotionCard 
-          title="Become a GeekPoints Champion"
-          content="Take your membership to the next level! Members with over 500 points qualify for our exclusive champion program with additional perks and networking opportunities."
-          ctaText="Learn More"
-          ctaUrl="#"
-        />
+      <div className="mb-12">
+        <Card className="overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-purple-500 to-purple-700 text-white">
+            <CardTitle>Meet the Developers</CardTitle>
+          </CardHeader>
+          <CardContent className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-32 h-32 rounded-full overflow-hidden mb-4 bg-purple-100">
+                  <div className="w-full h-full flex items-center justify-center text-purple-600 text-4xl font-bold">
+                    AG
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold mb-2">Aryan Gupta</h3>
+                <p className="text-muted-foreground mb-4">Lead Developer</p>
+                <p className="mb-4">Full-stack developer with expertise in React and Node.js. Passionate about creating tools that help communities thrive.</p>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="icon">
+                    <Github className="h-5 w-5" />
+                  </Button>
+                  <Button variant="outline" size="icon">
+                    <Linkedin className="h-5 w-5" />
+                  </Button>
+                  <Button variant="outline" size="icon">
+                    <Mail className="h-5 w-5" />
+                  </Button>
+                </div>
+              </div>
+              <div className="flex flex-col items-center text-center">
+                <div className="w-32 h-32 rounded-full overflow-hidden mb-4 bg-purple-100">
+                  <div className="w-full h-full flex items-center justify-center text-purple-600 text-4xl font-bold">
+                    SD
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold mb-2">Shreya Dhir</h3>
+                <p className="text-muted-foreground mb-4">UX Designer</p>
+                <p className="mb-4">Designer focused on creating intuitive and accessible user experiences. Combining aesthetics with functionality.</p>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="icon">
+                    <Github className="h-5 w-5" />
+                  </Button>
+                  <Button variant="outline" size="icon">
+                    <Linkedin className="h-5 w-5" />
+                  </Button>
+                  <Button variant="outline" size="icon">
+                    <Mail className="h-5 w-5" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <div className="mt-8 text-center">
+              <h3 className="text-xl font-bold mb-4">Contact Us</h3>
+              <p className="mb-4">Have questions, suggestions, or need assistance? Reach out to our team.</p>
+              <Button variant="default" className="bg-purple-600 hover:bg-purple-700">
+                <a href="mailto:support@geekpoints.tech" className="flex items-center gap-2">
+                  <Mail className="h-4 w-4" /> support@geekpoints.tech
+                </a>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import MemberSearch from '@/components/MemberSearch';
 import MemberCard from '@/components/MemberCard';
 import PointsChart from '@/components/PointsChart';
-import PromotionCard from '@/components/PromotionCard';
+import PromotionCarousel from '@/components/PromotionCarousel';
 
 const HomePage: React.FC = () => {
   const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
@@ -29,13 +29,7 @@ const HomePage: React.FC = () => {
       </div>
       
       <div className="mb-8">
-        <PromotionCard 
-          title="Join Our Next Event!"
-          content="Don't miss our upcoming tech workshop where you can earn extra points and learn new skills. Register now to secure your spot!"
-          imageUrl="/lovable-uploads/a2024e8c-b0af-4517-97e6-c4fea12969ad.png"
-          ctaText="Learn More"
-          ctaUrl="#"
-        />
+        <PromotionCarousel />
       </div>
     </div>
   );

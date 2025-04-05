@@ -79,6 +79,7 @@ const PointsChart: React.FC<PointsChartProps> = ({ memberId }) => {
         </CardHeader>
         <CardContent className="flex flex-col items-center justify-center h-[300px]">
           <p className="text-muted-foreground">No data available</p>
+          <p className="text-sm text-muted-foreground mt-2">Enter a member ID to view their points history</p>
         </CardContent>
       </Card>
     );
@@ -87,7 +88,7 @@ const PointsChart: React.FC<PointsChartProps> = ({ memberId }) => {
   return (
     <Card className="w-full animate-fade-in">
       <CardHeader className="pb-0">
-        <CardTitle>Points Progress</CardTitle>
+        <CardTitle>Points Progress for {member.name}</CardTitle>
         <p className="text-muted-foreground text-sm">Track your points over time</p>
       </CardHeader>
       <CardContent className="h-[300px]">
