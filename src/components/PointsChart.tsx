@@ -14,7 +14,7 @@ import {
   Legend
 } from 'recharts';
 import { format, parseISO } from 'date-fns';
-import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
+import { Progress } from '@/components/ui/progress';
 
 interface PointsChartProps {
   memberId: string | null;
@@ -53,6 +53,7 @@ const PointsChart: React.FC<PointsChartProps> = ({ memberId }) => {
     }
     
     console.log("Processing chart data for member:", member.id, "with history entries:", member.history.length);
+    console.log("Raw member history:", member.history);
     
     return member.history.map(entry => {
       let parsedDate;
@@ -78,6 +79,17 @@ const PointsChart: React.FC<PointsChartProps> = ({ memberId }) => {
       return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime();
     });
   }, [member]);
+
+  // Calculate progress percentage
+  const progressPercentage = React.useMemo(() => {
+    if (!member || !chartData.length) return 0;
+    
+    // Find maximum points value from history or use current points
+    const maxPoints = Math.max(...member.history.map(h => h.points), member.points);
+    // Calculate progress based on the member's current points as a percentage of max points goal (assuming 100 is max)
+    const goalPoints = Math.max(100, maxPoints); // Set minimum goal to 100, or higher if maxPoints exceeds it
+    return Math.min(100, Math.round((member.points / goalPoints) * 100));
+  }, [member, chartData]);
 
   // Colors for the chart based on theme
   const chartColors = {
@@ -109,8 +121,16 @@ const PointsChart: React.FC<PointsChartProps> = ({ memberId }) => {
         <CardTitle>Points Progress for {member.name}</CardTitle>
         <p className="text-muted-foreground text-sm">Track your points over time</p>
       </CardHeader>
-      <CardContent className="h-[300px] pt-4">
-        <ResponsiveContainer width="100%" height="100%">
+      <CardContent className="h-[350px] pt-4">
+        <div className="mb-4">
+          <div className="flex justify-between mb-2">
+            <span className="text-sm font-medium">Progress: {progressPercentage}%</span>
+            <span className="text-sm font-medium">{member.points} points</span>
+          </div>
+          <Progress value={progressPercentage} className="h-2" />
+        </div>
+        
+        <ResponsiveContainer width="100%" height="85%">
           <LineChart
             data={chartData}
             margin={{
@@ -134,7 +154,7 @@ const PointsChart: React.FC<PointsChartProps> = ({ memberId }) => {
               domain={[0, 'dataMax + 10']}
             />
             <Tooltip content={<CustomTooltip />} />
-            <Legend />
+            <Legend verticalAlign="top" height={36} />
             <Line
               name="Points"
               type="monotone"

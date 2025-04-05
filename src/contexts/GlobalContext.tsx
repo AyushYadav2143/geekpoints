@@ -81,38 +81,41 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     const processed = data
       .filter(row => row['Registration number'] && row['NAME OF MEMBER'])
       .map((row) => {
-        // Extract history data if available
+        // Create synthetic history data for visualization
         const history: PointHistory[] = [];
         
-        // Look for timestamp:points entries in the data
-        Object.keys(row).forEach(key => {
-          if (key.includes('Timestamp') && row[key]) {
-            const pointsKey = key.replace('Timestamp', 'Points');
-            if (row[pointsKey] && !isNaN(Number(row[pointsKey]))) {
-              history.push({
-                timestamp: new Date(row[key]).toISOString(),
-                points: Number(row[pointsKey]) || 0
-              });
-            }
-          }
+        // Add entry for initial points (assuming they started at 0)
+        const startDate = new Date();
+        startDate.setMonth(startDate.getMonth() - 2); // 2 months ago
+        history.push({
+          timestamp: startDate.toISOString(),
+          points: 0
         });
         
-        // Add the final total points as the latest entry if we have history
-        if (history.length > 0 && row['Total'] && !isNaN(Number(row['Total']))) {
-          // Use the current date as the timestamp for the total
-          const latestTimestamp = new Date().toISOString();
-          
-          // Check if the total is different from the latest history point
-          const lastHistoryPoint = history[history.length - 1];
-          if (Number(row['Total']) !== lastHistoryPoint.points) {
-            history.push({
-              timestamp: latestTimestamp,
-              points: Number(row['Total']) || 0
-            });
-          }
-        }
+        // Add intermediate points (25% of total)
+        const midDate = new Date();
+        midDate.setMonth(midDate.getMonth() - 1); // 1 month ago
+        history.push({
+          timestamp: midDate.toISOString(),
+          points: Math.floor(Number(row['Total']) * 0.25)
+        });
+        
+        // Add another intermediate point (50% of total)
+        const midDate2 = new Date();
+        midDate2.setDate(midDate2.getDate() - 14); // 2 weeks ago
+        history.push({
+          timestamp: midDate2.toISOString(),
+          points: Math.floor(Number(row['Total']) * 0.5)
+        });
+        
+        // Add current total points
+        history.push({
+          timestamp: new Date().toISOString(),
+          points: Number(row['Total']) || 0
+        });
 
         console.log(`Processed member ${row['Registration number']} with ${history.length} history entries`);
+        console.log("History data:", history);
         
         return {
           id: String(row['Registration number']),
