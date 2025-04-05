@@ -147,6 +147,28 @@ const AboutPage: React.FC = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Tech Support Section */}
+      <div className="mb-12">
+        <Card>
+          <CardHeader className="flex flex-col items-center gap-2 text-center">
+            <Mail className="h-6 w-6 text-purple-600" />
+            <CardTitle>Need Help or Technical Support?</CardTitle>
+          </CardHeader>
+          <CardContent className="text-center">
+            <p className="mb-4 max-w-xl mx-auto">
+              If you're facing any technical issues or have general queries regarding the GeekPoints app,
+              feel free to reach out. We’re here to help you!
+            </p>
+            <a
+              href="mailto: geeksforgeekslpu.contact@gmail.com"
+              className="inline-block px-5 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
+            >
+              Contact Tech Support
+            </a>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
