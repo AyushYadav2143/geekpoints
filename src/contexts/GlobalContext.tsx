@@ -75,25 +75,38 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const processData = (data: any[]) => {
     if (!data || !data.length) return [];
 
-    // Assuming the CSV has columns: id, name, points, history (timestamp:points,timestamp:points)
-    const processed = data.map((row) => {
-      const history: PointHistory[] = row.history 
-        ? row.history.split(',').map((item: string) => {
-            const [timestamp, points] = item.split(':');
-            return {
-              timestamp,
-              points: Number(points)
-            };
-          })
-        : [];
+    console.log("CSV data sample:", data.slice(0, 2));
 
-      return {
-        id: row.id || "",
-        name: row.name || "Unknown",
-        points: Number(row.points) || 0,
-        history
-      };
-    });
+    // Map the CSV fields to our data structure
+    const processed = data
+      .filter(row => row['Registration number'] && row['NAME OF MEMBER'])
+      .map((row) => {
+        // Extract history data if available
+        const history: PointHistory[] = [];
+        
+        // Look for timestamp:points entries in the data
+        Object.keys(row).forEach(key => {
+          if (key.includes('Timestamp') && row[key]) {
+            const pointsKey = key.replace('Timestamp', 'Points');
+            if (row[pointsKey]) {
+              history.push({
+                timestamp: row[key],
+                points: Number(row[pointsKey]) || 0
+              });
+            }
+          }
+        });
+
+        return {
+          id: String(row['Registration number']),
+          name: row['NAME OF MEMBER'] || "Unknown",
+          points: Number(row['Total'] || 0),
+          history: history.sort((a, b) => 
+            new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+          ),
+          rank: 0 // Will be calculated below
+        };
+      });
 
     // Sort by points (highest first) and assign ranks
     return processed
@@ -116,9 +129,15 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
       Papa.parse(csvText, {
         header: true,
         complete: (results) => {
-          const processedData = processData(results.data as any[]);
-          setMembers(processedData);
-          setLastUpdated(new Date());
+          console.log("CSV parsing complete", results);
+          if (results.data && results.data.length > 0) {
+            const processedData = processData(results.data as any[]);
+            setMembers(processedData);
+            setLastUpdated(new Date());
+          } else {
+            console.error("No data found in CSV", results);
+            toast.error("No data found in spreadsheet");
+          }
           setLoading(false);
         },
         error: (error) => {

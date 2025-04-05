@@ -3,7 +3,7 @@ import React from 'react';
 import { useGlobal } from '@/contexts/GlobalContext';
 
 const Footer: React.FC = () => {
-  const { lastUpdated } = useGlobal();
+  const { lastUpdated, loading, error, members } = useGlobal();
   
   return (
     <footer className="w-full py-6 px-4 mt-auto">
@@ -16,10 +16,14 @@ const Footer: React.FC = () => {
         
         <div className="text-center md:text-right">
           <p className="text-xs text-muted-foreground">
-            {lastUpdated ? (
-              <>Last updated: {lastUpdated.toLocaleTimeString()}</>
-            ) : (
+            {loading ? (
               <>Updating data...</>
+            ) : error ? (
+              <>Error: {error}</>
+            ) : lastUpdated ? (
+              <>Last updated: {lastUpdated.toLocaleTimeString()} • {members.length} members loaded</>
+            ) : (
+              <>Initializing data...</>
             )}
           </p>
         </div>

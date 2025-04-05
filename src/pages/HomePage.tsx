@@ -32,7 +32,7 @@ const HomePage: React.FC = () => {
         <PromotionCard 
           title="Join Our Next Event!"
           content="Don't miss our upcoming tech workshop where you can earn extra points and learn new skills. Register now to secure your spot!"
-          imageUrl="/public/lovable-uploads/a2024e8c-b0af-4517-97e6-c4fea12969ad.png"
+          imageUrl="/lovable-uploads/a2024e8c-b0af-4517-97e6-c4fea12969ad.png"
           ctaText="Learn More"
           ctaUrl="#"
         />
