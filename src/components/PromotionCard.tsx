@@ -23,6 +23,7 @@ const PromotionCard: React.FC<PromotionCardProps> = ({
       <CardHeader className="bg-gradient-to-r from-purple-500 to-purple-700 text-white">
         <div className="flex items-center gap-2">
           <Megaphone className="h-5 w-5" />
+          <CardTitle>Geeks for Geeks LpU chapter.</CardTitle>
         </div>
       </CardHeader>
       <CardContent className="pt-4">
