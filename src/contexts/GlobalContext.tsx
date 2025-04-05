@@ -88,15 +88,32 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         Object.keys(row).forEach(key => {
           if (key.includes('Timestamp') && row[key]) {
             const pointsKey = key.replace('Timestamp', 'Points');
-            if (row[pointsKey]) {
+            if (row[pointsKey] && !isNaN(Number(row[pointsKey]))) {
               history.push({
-                timestamp: row[key],
+                timestamp: new Date(row[key]).toISOString(),
                 points: Number(row[pointsKey]) || 0
               });
             }
           }
         });
+        
+        // Add the final total points as the latest entry if we have history
+        if (history.length > 0 && row['Total'] && !isNaN(Number(row['Total']))) {
+          // Use the current date as the timestamp for the total
+          const latestTimestamp = new Date().toISOString();
+          
+          // Check if the total is different from the latest history point
+          const lastHistoryPoint = history[history.length - 1];
+          if (Number(row['Total']) !== lastHistoryPoint.points) {
+            history.push({
+              timestamp: latestTimestamp,
+              points: Number(row['Total']) || 0
+            });
+          }
+        }
 
+        console.log(`Processed member ${row['Registration number']} with ${history.length} history entries`);
+        
         return {
           id: String(row['Registration number']),
           name: row['NAME OF MEMBER'] || "Unknown",
@@ -134,6 +151,11 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
             const processedData = processData(results.data as any[]);
             setMembers(processedData);
             setLastUpdated(new Date());
+            
+            // Debug: Check the first member's history
+            if (processedData.length > 0) {
+              console.log("First member history:", processedData[0].history);
+            }
           } else {
             console.error("No data found in CSV", results);
             toast.error("No data found in spreadsheet");

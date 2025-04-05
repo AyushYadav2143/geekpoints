@@ -2,8 +2,19 @@
 import React from 'react';
 import { useGlobal } from '@/contexts/GlobalContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, TooltipProps } from 'recharts';
+import { 
+  LineChart, 
+  Line, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  ResponsiveContainer,
+  TooltipProps,
+  Legend
+} from 'recharts';
 import { format, parseISO } from 'date-fns';
+import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
 
 interface PointsChartProps {
   memberId: string | null;
@@ -37,14 +48,19 @@ const PointsChart: React.FC<PointsChartProps> = ({ memberId }) => {
   // Format the history data for the chart
   const chartData = React.useMemo(() => {
     if (!member || !member.history || member.history.length === 0) {
+      console.log("No member data or history found for chart");
       return [];
     }
+    
+    console.log("Processing chart data for member:", member.id, "with history entries:", member.history.length);
     
     return member.history.map(entry => {
       let parsedDate;
       try {
         parsedDate = parseISO(entry.timestamp);
+        console.log("Parsed date:", parsedDate, "from timestamp:", entry.timestamp);
       } catch (e) {
+        console.error("Error parsing date:", entry.timestamp, e);
         // If parsing fails, just use the original string
         return { 
           timestamp: entry.timestamp, 
@@ -56,7 +72,7 @@ const PointsChart: React.FC<PointsChartProps> = ({ memberId }) => {
       return { 
         timestamp: entry.timestamp, 
         points: entry.points,
-        formattedDate: format(parsedDate, 'MMM dd, yyyy HH:mm')
+        formattedDate: format(parsedDate, 'MMM dd, yyyy')
       };
     }).sort((a, b) => {
       return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime();
@@ -85,13 +101,15 @@ const PointsChart: React.FC<PointsChartProps> = ({ memberId }) => {
     );
   }
 
+  console.log("Rendering chart with data:", chartData);
+
   return (
     <Card className="w-full animate-fade-in">
       <CardHeader className="pb-0">
         <CardTitle>Points Progress for {member.name}</CardTitle>
         <p className="text-muted-foreground text-sm">Track your points over time</p>
       </CardHeader>
-      <CardContent className="h-[300px]">
+      <CardContent className="h-[300px] pt-4">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={chartData}
@@ -108,18 +126,23 @@ const PointsChart: React.FC<PointsChartProps> = ({ memberId }) => {
               tick={{ fill: chartColors.text, fontSize: 11 }}
               angle={-45}
               textAnchor="end"
-              height={50}
-              tickMargin={10}
+              height={60}
+              tickMargin={15}
             />
-            <YAxis tick={{ fill: chartColors.text }} />
+            <YAxis 
+              tick={{ fill: chartColors.text }} 
+              domain={[0, 'dataMax + 10']}
+            />
             <Tooltip content={<CustomTooltip />} />
+            <Legend />
             <Line
+              name="Points"
               type="monotone"
               dataKey="points"
               stroke={chartColors.line}
               strokeWidth={2}
-              dot={{ fill: chartColors.dot, r: 3 }}
-              activeDot={{ r: 6 }}
+              dot={{ fill: chartColors.dot, r: 4 }}
+              activeDot={{ r: 6, fill: "#9333ea" }}
               animationDuration={1000}
             />
           </LineChart>
