@@ -134,6 +134,7 @@ const AboutPage: React.FC = () => {
                   <a href="https://github.com/aryaneelshivam" target="_blank" rel="noopener noreferrer">
                     <Button variant="outline" size="icon"><Github className="h-5 w-5" /></Button>
                   </a>
+                  <a href="https://www.linkedin.com/in/aryaneelshivam/" target="_blank" rel="noopener noreferrer">
                     <Button variant="outline" size="icon"><Linkedin className="h-5 w-5" /></Button>
                   </a>
                   <a href="mailto:aryaneelshivam1234@gmail.com">
