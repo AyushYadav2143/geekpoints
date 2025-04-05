@@ -29,6 +29,7 @@ const PromotionCard: React.FC<PromotionCardProps> = ({
         {imageUrl && (
           <div className="relative w-full mb-4 overflow-hidden rounded-md aspect-[16/9] animate-float">
             <img 
+              src="/lovable-uploads/banner1.jpeg"
               alt="Promotion image" 
               className="object-cover w-full h-full"
             />
