@@ -22,6 +22,7 @@ const AboutPage: React.FC = () => {
           <CardContent>
             <p>
               GeekPoints is the official point-tracking application of GeeksforGeeks LPU, developed to bring transparency and accountability within the organisation. The primary aim of this app is to ensure that every member's contribution is recognized and rewarded in a fair and systematic manner. Members can view their earned points, track task history, and monitor their growth, creating a transparent environment where hard work is visible and appreciated. At the same time, admins can assign points, manage tasks, and oversee member progress efficiently. With a clean modern interface and real-time updates, GeekPoints serves as a centralized platform that strengthens motivation, encourages participation, and builds a merit-based culture within the organisation.
+              GeekPoints is the official point-tracking application of GeeksforGeeks LPU Chapter, developed to bring transparency and accountability within the organisation. The primary aim of this app is to ensure that every member's contribution is recognized and rewarded in a fair and systematic manner. Members can view their earned points, track task history, and monitor their growth, creating a transparent environment where hard work is visible and appreciated. At the same time, admins can assign points, manage tasks, and oversee member progress efficiently. With a clean modern interface and real-time updates, GeekPoints serves as a centralized platform that strengthens motivation, encourages participation, and builds a merit-based culture within the organisation.
             </p>
           </CardContent>
         </Card>
@@ -60,6 +61,7 @@ const AboutPage: React.FC = () => {
               <div>
                 <h3 className="font-medium">What rewards can I earn with points?</h3>
                 <p className="text-muted-foreground">Points can be redeemed for club merchandise, priority registration for special events, and exclusive workshop access.</p>
+                <p className="text-muted-foreground">Promotions within the organization will be based on the points earned, except for core positions which are appointed separately; additionally, the title of Geek of the Month will be awarded based on these points.</p>
               </div>
               <div>
                 <h3 className="font-medium">Can I transfer my points to someone else?</h3>
