@@ -14,10 +14,10 @@ const promotions = [
   {
     id: 1,
     title: "Join Our Next Event!",
-    content: "Don't miss our upcoming tech workshop where you can earn extra points and learn new skills. Register now to secure your spot!",
+    content: "⚡️Big news from GeeksforGeeks Student Chapter, LPU! We're launching a free expert-curated DSA E-book to strengthen your fundamentals. Includes a DSA Cheat Sheet, bonus content, and top-notch revision material. 🔥 Grab this limited-time opportunity to boost your coding prep for placements. 🚀 Stay tuned for more resources, sessions & masterclasses to grow as a developer!",
     imageUrl: "/lovable-uploads/a2024e8c-b0af-4517-97e6-c4fea12969ad.png",
     ctaText: "Learn More",
-    ctaUrl: "#"
+    ctaUrl: " https://forms.gle/hy6Ju8stxweBoEbC6"
   },
   {
     id: 2,

@@ -23,14 +23,14 @@ const PromotionCard: React.FC<PromotionCardProps> = ({
       <CardHeader className="bg-gradient-to-r from-purple-500 to-purple-700 text-white">
         <div className="flex items-center gap-2">
           <Megaphone className="h-5 w-5" />
-          <CardTitle>Geeks for Geeks LpU chapter.</CardTitle>
+          <CardTitle>Boost Your DSA Skills Free!.</CardTitle>
         </div>
       </CardHeader>
       <CardContent className="pt-4">
         {imageUrl && (
           <div className="relative w-full mb-4 overflow-hidden rounded-md aspect-[16/9] animate-float">
             <img 
-              src="/lovable-uploads/banner1.jpeg"
+              src="/lovable-uploads/decoded-ebook.PNG"
               alt="Promotion image" 
               className="object-cover w-full h-full"
             />
